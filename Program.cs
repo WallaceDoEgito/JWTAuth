@@ -1,4 +1,6 @@
 using BarotraumaJWT.Data;
+using BarotraumaJWT.Interfaces;
+using BarotraumaJWT.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +11,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 builder.Services.AddScoped<AppDbContext>();
+builder.Services.AddScoped<IPasswordHasher, BcryptHasher>();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 {
     

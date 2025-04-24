@@ -5,13 +5,13 @@ namespace BarotraumaJWT.Data;
 
 public class AppDbContext : DbContext
 {
-    private DbSet<User> User;
-    private DbSet<Characters> Characters;
-    private DbSet<Submarine> Submarines;
+    public DbSet<Characters> Characters { get; set; }
+    public DbSet<User> Users { get; set; }
+    public DbSet<Submarine> Submarines { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseSqlServer(
-            "Server=localhost,1433;User Id=sa;Password=JRhPRt&n#xs03i*XRCja2!;Database=Barotrauma;");
+            "Server=localhost,1433;User Id=sa;Password=JRhPRt&n#xs03i*XRCja2!;Database=Barotrauma;TrustServerCertificate=true;");
     }
 }

@@ -4,6 +4,14 @@ namespace BarotraumaJWT.Models;
 
 public class Characters
 {
-    public string name { get; set; }
-    public Roles Profision { get; set; }
+    public Guid Id { get; private set; }
+    public string Name { get; private set; }
+    public Roles Profission { get; private set; }
+
+    public Characters(String name, Roles profission)
+    {
+        Id = Guid.NewGuid();
+        Name = name;
+        Profission = profission;
+    }
 }

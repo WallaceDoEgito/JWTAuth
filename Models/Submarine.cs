@@ -1,7 +1,10 @@
+using BarotraumaJWT.Enums;
+
 namespace BarotraumaJWT.Models;
 
 public class Submarine
 {
-    private Guid ID { get; set; }
-    private List<Characters> tripulates { get; set; }
+    public Guid Id { get; private set; }
+    public SubmarineModels Model { get; set; }
+    public List<Characters> Tripulates { get; set; } = new List<Characters>();
 }
