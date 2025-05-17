@@ -11,9 +11,10 @@ public class TokenService(IConfiguration configuration) : ITokenManager
 {
     public string CreateToken(User user)
     {
-        var Claims = new List<Claim>()
+        var claims = new List<Claim>()
         {
-            new Claim(ClaimTypes.Name, user.LoginName)
+            new Claim(ClaimTypes.Name, user.LoginName),
+            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
         };
 
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration.GetValue<string>("JWTConfig:SecretKey")!));
@@ -24,7 +25,7 @@ public class TokenService(IConfiguration configuration) : ITokenManager
             (
                 issuer: configuration.GetValue<String>("JWTConfig:Issuer"),
                 audience:configuration.GetValue<String>("JWTConfig:Audience"),
-                claims: Claims,
+                claims: claims,
                 expires: DateTime.Now.AddMinutes(configuration.GetValue<Double>("JWTConfig:ExpirationInMin")),
                 signingCredentials: cred
             );
