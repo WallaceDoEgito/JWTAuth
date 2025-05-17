@@ -12,6 +12,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 builder.Services.AddScoped<AppDbContext>();
 builder.Services.AddScoped<IPasswordHasher, BcryptHasher>();
+builder.Services.AddScoped<ITokenManager, TokenService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 {
     
