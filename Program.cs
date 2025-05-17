@@ -6,7 +6,7 @@ using BarotraumaJWT.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.SwaggerConfigure();
+builder.Services.SwaggerAuthConfigure();
 builder.Services.AddControllers();
 builder.Services.AddScoped<AppDbContext>();
 builder.Services.AddScoped<IPasswordHasher, BcryptHasher>();

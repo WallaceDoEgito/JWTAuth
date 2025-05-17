@@ -5,6 +5,6 @@ namespace BarotraumaJWT.Interfaces;
 
 public interface IAuthService
 {
-    public Task<User?> RegisterAsync(UserRequest request);
-    public String? LoginAsync(UserRequest request);
+    public Task<User?> RegisterAsync(UserRequestAuth requestAuth);
+    public String? LoginAsync(UserRequestAuth requestAuth);
 }

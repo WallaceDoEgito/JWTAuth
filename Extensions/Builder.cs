@@ -7,7 +7,7 @@ namespace BarotraumaJWT.Extensions;
 
 public static class Builder
 {
-    public static IServiceCollection SwaggerConfigure(this IServiceCollection services)
+    public static IServiceCollection SwaggerAuthConfigure(this IServiceCollection services)
     {
         services.AddSwaggerGen(c =>
         {

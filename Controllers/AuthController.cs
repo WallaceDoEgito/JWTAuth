@@ -13,7 +13,7 @@ namespace BarotraumaJWT.Controllers;
 public class AuthController(IAuthService authService) : ControllerBase
 {
     [HttpPost("register")]
-    public async Task<IActionResult> Registrar(UserRequest dados)
+    public async Task<IActionResult> Registrar(UserRequestAuth dados)
     {
         User? res = await authService.RegisterAsync(dados);
         if (res == null) return BadRequest("Este usuario ja existe");
@@ -21,7 +21,7 @@ public class AuthController(IAuthService authService) : ControllerBase
     }
 
     [HttpPost("login")]
-    public IActionResult Login(UserRequest dados)
+    public IActionResult Login(UserRequestAuth dados)
     {
         String? token = authService.LoginAsync(dados);
         if (token == null) return BadRequest("O Usuario ou a senha está errado");
