@@ -4,6 +4,7 @@ using BarotraumaJWT.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BarotraumaJWT.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250518151321_relation")]
+    partial class relation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,18 +38,20 @@ namespace BarotraumaJWT.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Profission")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Profission")
+                        .HasColumnType("int");
 
                     b.Property<Guid?>("SubmarineId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("CreatorId");
-
                     b.HasIndex("SubmarineId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Characters");
                 });
@@ -86,15 +91,14 @@ namespace BarotraumaJWT.Migrations
 
             modelBuilder.Entity("BarotraumaJWT.Models.Characters", b =>
                 {
-                    b.HasOne("BarotraumaJWT.Models.User", null)
-                        .WithMany("CreatedCharacters")
-                        .HasForeignKey("CreatorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("BarotraumaJWT.Models.Submarine", null)
                         .WithMany("Tripulates")
                         .HasForeignKey("SubmarineId");
+
+                    b.HasOne("BarotraumaJWT.Models.User", null)
+                        .WithMany("CreatedCharacters")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("BarotraumaJWT.Models.Submarine", b =>
