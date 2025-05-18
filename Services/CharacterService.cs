@@ -33,14 +33,20 @@ public class CharacterService(AppDbContext dbContext) : ICharacterService
 
     }
 
-    public async Task<List<Characters>> GetAllCharacters(string userId)
+    public async Task<List<Characters>?> GetAllCharacters(string userId)
     {
         var user =  await dbContext.Characters.Where(c => c.CreatorId.ToString() == userId).ToListAsync();
         return user;
     }
 
-    public Task<string> DeleteCharacterById(string characterId)
+    public async Task<string?> DeleteCharacterById(string characterId, string userId)
     {
-        throw new NotImplementedException();
+        Characters? characterToDelete = await dbContext.Characters.FirstOrDefaultAsync(e => e.Id.ToString() == characterId);
+        if (characterToDelete is null) return null;
+        if (characterToDelete.CreatorId.ToString() != userId) return null;
+        String name = characterToDelete.Name;
+        dbContext.Characters.Remove(characterToDelete);
+        await dbContext.SaveChangesAsync();
+        return name;
     }
 }

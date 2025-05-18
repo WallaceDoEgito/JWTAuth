@@ -31,4 +31,13 @@ public class CharactersController(ICharacterService service):ControllerBase
         if (charList == null) return BadRequest("Nao foi possivel concluir a operacao");
         return Ok(charList);
     }
+
+    [HttpDelete]
+    public async Task<IActionResult> DeleteCharacterById(String charId)
+    {
+        String? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        String? deleted = await service.DeleteCharacterById(charId, userId);
+        if (deleted is null) return BadRequest("Nao foi possivel deletar esse personagem");
+        return StatusCode(StatusCodes.Status204NoContent);
+    }
 }
