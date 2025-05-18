@@ -12,6 +12,7 @@ builder.Services.AddScoped<AppDbContext>();
 builder.Services.AddScoped<IPasswordHasher, BcryptHasher>();
 builder.Services.AddScoped<ITokenManager, TokenService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<ICharacterService, CharacterService>();
 builder.Services.ConfigureJwtAuthentication(builder.Configuration);
 
 var app = builder.Build();
